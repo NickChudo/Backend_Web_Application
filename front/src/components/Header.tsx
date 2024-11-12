@@ -5,6 +5,9 @@ export const Header = () => {
         <div>Voice Assistant for people with speech disorder</div>
       </span>
       <span className="header__description">
+        <a className="header__item" href="/">
+          Home
+        </a>
         <a className="header__item" href="/aboutus">
           About us
         </a>
