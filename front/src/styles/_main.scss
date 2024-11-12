@@ -1,0 +1,11 @@
+@import "./fonts";
+
+//Components
+@import "./components/header";
+
+//Pages
+@import "./view/mainpage";
+
+html {
+  font-family: Montserrat;
+}
