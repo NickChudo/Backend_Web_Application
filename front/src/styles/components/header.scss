@@ -1,0 +1,31 @@
+@import "../fonts";
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-bottom: 2px solid black;
+  border-radius: 15px;
+
+  &__title {
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  &__item {
+    border-right: 1px solid black;
+    padding-right: 10px;
+  }
+
+  &__item:nth-last-child(1) {
+    border-right: none;
+    padding-right: 0;
+  }
+}
