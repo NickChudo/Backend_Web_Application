@@ -9,7 +9,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/get_prediction")
 def main():
     model_file= 'model.pth'
     pretrained_model = ModelInit(model_file, 'cpu')
