@@ -16,6 +16,7 @@ def main():
 
     pred = pretrained_model.predict("D:/new_disorder_speeches_over_2000/Speeches/39.1.wav")
     print(pred)
+    return pred
 
 if __name__ == '__main__':
     uvicorn.run(app, host="127.0.0.1", port=8000)
