@@ -1,7 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import { Header } from "../components/Header";
+import axios from "axios";
 
 export const MainPage = () => {
+  const getTest = async () => {
+    const resp = await axios.get("http://localhost:8000/get_prediction");
+    console.log(resp);
+  };
   const [result, setResult] = useState("");
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.currentTarget.value;
@@ -22,6 +27,7 @@ export const MainPage = () => {
         ></textarea>
       </div>
       <div className="description">
+        <button onClick={getTest}>123</button>
         <p>
           The application is an "outer wrapper" for a neural network made for a
           research project. It must be said that the neural network is trained

@@ -14,9 +14,9 @@ def main():
     model_file= 'model.pth'
     pretrained_model = ModelInit(model_file, 'cpu')
 
-    pred = pretrained_model.predict("D:/new_disorder_speeches_over_2000/Speeches/39.1.wav")
+    pred = pretrained_model.predict("E:/Speeches/Speeches/39.1.wav")
     print(pred)
     return pred
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
