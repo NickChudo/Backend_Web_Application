@@ -1,23 +1,62 @@
 import { ChangeEvent, useState } from "react";
 import { Header } from "../components/Header";
-import axios from "axios";
 
 export const MainPage = () => {
-  const getTest = async () => {
-    const resp = await axios.get("http://localhost:8000/get_prediction");
-    console.log(resp);
-  };
   const [result, setResult] = useState("");
+  const [file, setFile] = useState(null);
+  const [pred, setPred] = useState("");
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.currentTarget.value;
     setResult(value);
     console.log(value);
   };
+
+  const handleFileChange = (event: any) => {
+    setFile(event.target.files[0]);
+  };
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    if (!file) {
+      alert("Please select a file first.");
+      return;
+    }
+
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/get_prediction", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(
+          JSON.stringify(data).substring(15).replace('"', "").replace("}", "")
+        );
+        setPred(
+          JSON.stringify(data).substring(15).replace('"', "").replace("}", "")
+        );
+      } else {
+        console.error("Error uploading file");
+        const errorText = await response.text();
+        console.error("Response text:", errorText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <Header />
       <div className="fields">
-        <input type="file" />
+        <form onSubmit={handleSubmit}>
+          <input type="file" onChange={handleFileChange} />
+          <button type="submit">Upload</button>
+        </form>
         <textarea
           name="result"
           id="result"
@@ -27,7 +66,7 @@ export const MainPage = () => {
         ></textarea>
       </div>
       <div className="description">
-        <button onClick={getTest}>123</button>
+        {pred}
         <p>
           The application is an "outer wrapper" for a neural network made for a
           research project. It must be said that the neural network is trained
