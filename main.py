@@ -31,10 +31,20 @@ from pydub import AudioSegment
 from pydub.utils import mediainfo
 import os
 from io import BytesIO
+from fastapi.middleware.cors import CORSMiddleware
 
 warnings.filterwarnings("ignore")
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Replace with the frontend's origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/get_prediction")
 async def main(file: UploadFile = File(...)):
