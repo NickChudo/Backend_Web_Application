@@ -9,3 +9,18 @@
 html {
   font-family: Montserrat;
 }
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h3 {
+  margin-top: 5px;
+}
+
+.description {
+  margin-top: 300px;
+}

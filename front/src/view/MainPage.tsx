@@ -1,5 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import { Header } from "../components/Header";
+import {
+  Box,
+  Button,
+  OutlinedInput,
+  TextareaAutosize,
+  Typography,
+} from "@mui/material";
 
 export const MainPage = () => {
   const [result, setResult] = useState("");
@@ -53,28 +60,36 @@ export const MainPage = () => {
     <>
       <Header />
       <div className="fields">
-        <form onSubmit={handleSubmit}>
-          <input type="file" onChange={handleFileChange} />
-          <button type="submit">Upload</button>
+        <form onSubmit={handleSubmit} className="form">
+          <OutlinedInput type="file" onChange={handleFileChange} />
+          <Button variant="contained" type="submit">
+            Upload
+          </Button>
         </form>
-        <textarea
-          name="result"
-          id="result"
-          placeholder="Result will display here"
-          defaultValue={result}
-          onChange={handleChange}
-        ></textarea>
+        <Box
+          sx={{
+            width: 400,
+            height: 80,
+            borderRadius: 1,
+            border: "1px solid black",
+            textAlign: "center",
+            padding: 0,
+            margin: 0,
+          }}
+        >
+          <h3>Result will be displayed here</h3>
+          {pred}
+        </Box>
       </div>
       <div className="description">
-        {pred}
-        <p>
+        <Typography variant="string">
           The application is an "outer wrapper" for a neural network made for a
           research project. It must be said that the neural network is trained
           on the voice of one specific person, so it can generate nonsense for
           you. In addition to voice-to-text recognition, you can voice the
           resulting text in a male or female voice. This is possible thanks to
           the open-source neural network model.
-        </p>
+        </Typography>
       </div>
     </>
   );

@@ -1,22 +1,26 @@
+import { Link, Typography } from "@mui/material";
+
 export const Header = () => {
   return (
     <div className="header">
       <span className="header__title">
-        <div>Voice Assistant for people with speech disorder</div>
+        <Typography variant="h5">
+          Voice Assistant for people with speech disorder
+        </Typography>
       </span>
       <span className="header__description">
-        <a className="header__item" href="/">
+        <Link className="header__item" href="/">
           Home
-        </a>
-        <a className="header__item" href="/aboutus">
+        </Link>
+        <Link className="header__item" href="/aboutus">
           About us
-        </a>
-        <a className="header__item" href="/team">
+        </Link>
+        <Link className="header__item" href="/team">
           Team
-        </a>
-        <a className="header__item" href="/aboutproject">
+        </Link>
+        <Link className="header__item" href="/aboutproject">
           About project
-        </a>
+        </Link>
       </span>
     </div>
   );
