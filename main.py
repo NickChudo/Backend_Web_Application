@@ -8,7 +8,6 @@ from pydub.utils import mediainfo
 import os
 from io import BytesIO
 from fastapi.middleware.cors import CORSMiddleware
-import soundfile
 
 warnings.filterwarnings("ignore")
 
@@ -30,8 +29,13 @@ async def main(file: UploadFile = File(...)):
     try:
         save_directory = "uploaded_files"
         os.makedirs(save_directory, exist_ok=True)
+        file_path = os.path.join(save_directory, f"{file.filename}")
+        if file_path.endswith('.webm'):
+            wav_path = os.path.splitext(file_path)[0] + '.wav'
+            AudioSegment.from_file(file_path).export(wav_path, format="wav")
+            file_path = wav_path
 
-        file_path = os.path.join(save_directory, f"{file.filename}.wav")
+        
 
         with open(file_path, "wb") as f:
             f.write(await file.read())

@@ -102,10 +102,6 @@ class ModelInit:
         return ''.join(string)
         
     def predict(self, audio_path):
-        if audio_path.endswith('.webm'):
-            wav_path = os.path.splitext(audio_path)[0] + '.wav'
-            AudioSegment.from_file(audio_path).export(wav_path, format="wav")
-            audio_path = wav_path
 
         audio = librosa.load(audio_path, sr=16000)[0]
         audio = audio[np.newaxis, :]
