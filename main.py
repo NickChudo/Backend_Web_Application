@@ -29,22 +29,24 @@ async def main(file: UploadFile = File(...)):
     try:
         save_directory = "uploaded_files"
         os.makedirs(save_directory, exist_ok=True)
-        file_path = os.path.join(save_directory, f"{file.filename}")
-        if file_path.endswith('.webm'):
-            wav_path = os.path.splitext(file_path)[0] + '.wav'
-            AudioSegment.from_file(file_path).export(wav_path, format="wav")
-            file_path = wav_path
-
+        file_path = os.path.join(save_directory, file.filename)
         
-
+        # Save the uploaded file
         with open(file_path, "wb") as f:
             f.write(await file.read())
 
-        model_file = 'model.pth'
-        pretrained_model = ModelInit(model_file, 'cpu')
+        # Convert .webm to .wav if necessary
+        if file_path.endswith(".webm"):
+            wav_path = os.path.splitext(file_path)[0] + ".wav"
+            audio = AudioSegment.from_file(file_path)
+            audio.export(wav_path, format="wav")
+            file_path = wav_path  # Update file path to .wav
+
+        # Load the model and make predictions
+        model_file = "model.pth"
+        pretrained_model = ModelInit(model_file, "cpu")
         pred = pretrained_model.predict(file_path)
-        
-        
+
         return JSONResponse(content={"prediction": pred})
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)

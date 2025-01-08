@@ -4,6 +4,26 @@ import { Box, Button, OutlinedInput, Typography } from "@mui/material";
 import { AudioRecorder } from "react-audio-voice-recorder";
 
 export const MainPage = () => {
+  const handleVoice = async (voice: any) => {
+    const formData = new FormData();
+    formData.append("file", voice);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/get_prediction", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      console.log(
+        JSON.stringify(data).substring(15).replace('"', "").replace("}", "")
+      );
+      setPred(
+        JSON.stringify(data).substring(15).replace('"', "").replace("}", "")
+      );
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const addAudioElement = (blob: Blob | MediaSource) => {
     const url = URL.createObjectURL(blob);
     const audio = document.createElement("audio");
@@ -68,13 +88,14 @@ export const MainPage = () => {
             Upload
           </Button>
           <AudioRecorder
-            onRecordingComplete={addAudioElement}
+            // onRecordingComplete={addAudioElement}
             audioTrackConstraints={{
               noiseSuppression: true,
               echoCancellation: true,
             }}
             downloadOnSavePress={true}
             downloadFileExtension="webm"
+            onRecordingComplete={(voice: any) => handleVoice(voice)}
           />
         </form>
         <Box
