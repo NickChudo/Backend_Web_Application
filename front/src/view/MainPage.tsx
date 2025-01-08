@@ -1,14 +1,16 @@
 import { ChangeEvent, useState } from "react";
 import { Header } from "../components/Header";
-import {
-  Box,
-  Button,
-  OutlinedInput,
-  TextareaAutosize,
-  Typography,
-} from "@mui/material";
+import { Box, Button, OutlinedInput, Typography } from "@mui/material";
+import { AudioRecorder } from "react-audio-voice-recorder";
 
 export const MainPage = () => {
+  const addAudioElement = (blob: Blob | MediaSource) => {
+    const url = URL.createObjectURL(blob);
+    const audio = document.createElement("audio");
+    audio.src = url;
+    audio.controls = true;
+    document.body.appendChild(audio);
+  };
   const [result, setResult] = useState("");
   const [file, setFile] = useState(null);
   const [pred, setPred] = useState("");
@@ -65,6 +67,15 @@ export const MainPage = () => {
           <Button variant="contained" type="submit">
             Upload
           </Button>
+          <AudioRecorder
+            onRecordingComplete={addAudioElement}
+            audioTrackConstraints={{
+              noiseSuppression: true,
+              echoCancellation: true,
+            }}
+            downloadOnSavePress={true}
+            downloadFileExtension="webm"
+          />
         </form>
         <Box
           sx={{
