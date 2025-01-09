@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Header } from "../components/Header";
 import { Box, Button, OutlinedInput, Typography } from "@mui/material";
 import { AudioRecorder } from "react-audio-voice-recorder";
@@ -11,8 +11,6 @@ export const MainPage = () => {
       alert("Please enter some text to pronounce!");
       return;
     }
-
-    // Use the Web Speech API to pronounce the text
     const speech = new SpeechSynthesisUtterance(textToPronounce);
     window.speechSynthesis.speak(speech);
   }
@@ -37,22 +35,9 @@ export const MainPage = () => {
       console.error("Error:", error);
     }
   };
-  const addAudioElement = (blob: Blob | MediaSource) => {
-    const url = URL.createObjectURL(blob);
-    const audio = document.createElement("audio");
-    audio.src = url;
-    audio.controls = true;
-    document.body.appendChild(audio);
-  };
   const [result, setResult] = useState("");
   const [file, setFile] = useState(null);
   const [pred, setPred] = useState("");
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.currentTarget.value;
-    setResult(value);
-    console.log(value);
-  };
-
   const handleFileChange = (event: any) => {
     setFile(event.target.files[0]);
   };
@@ -101,7 +86,6 @@ export const MainPage = () => {
             Upload
           </Button>
           <AudioRecorder
-            // onRecordingComplete={addAudioElement}
             audioTrackConstraints={{
               noiseSuppression: true,
               echoCancellation: true,
@@ -130,7 +114,7 @@ export const MainPage = () => {
         </Button>
       </div>
       <div className="description">
-        <Typography variant="string">
+        <Typography>
           The application is an "outer wrapper" for a neural network made for a
           research project. It must be said that the neural network is trained
           on the voice of one specific person, so it can generate nonsense for
