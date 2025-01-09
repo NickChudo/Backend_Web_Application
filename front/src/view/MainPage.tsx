@@ -4,6 +4,19 @@ import { Box, Button, OutlinedInput, Typography } from "@mui/material";
 import { AudioRecorder } from "react-audio-voice-recorder";
 
 export const MainPage = () => {
+  function pronounceResult(string: string) {
+    const textToPronounce = string;
+
+    if (textToPronounce.trim() === "") {
+      alert("Please enter some text to pronounce!");
+      return;
+    }
+
+    // Use the Web Speech API to pronounce the text
+    const speech = new SpeechSynthesisUtterance(textToPronounce);
+    window.speechSynthesis.speak(speech);
+  }
+
   const handleVoice = async (voice: any) => {
     const formData = new FormData();
     formData.append("file", voice);
@@ -112,6 +125,9 @@ export const MainPage = () => {
           <h3>Result will be displayed here</h3>
           {pred}
         </Box>
+        <Button id="pronounceButton" onClick={() => pronounceResult(pred)}>
+          Pronounce Result
+        </Button>
       </div>
       <div className="description">
         <Typography variant="string">
