@@ -1,27 +1,24 @@
-import { Link, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, Link, Box } from "@mui/material";
 
 export const Header = () => {
   return (
-    <div className="header">
-      <span className="header__title">
-        <Typography variant="h5">
-          Voice Assistant for people with speech disorder
+    <AppBar position="static" sx={{ backgroundColor: "#1976d2", padding: 1 }}>
+      <Toolbar>
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          Voice Assistant for People with Speech Disorders
         </Typography>
-      </span>
-      <span className="header__description">
-        <Link className="header__item" href="/">
-          Home
-        </Link>
-        <Link className="header__item" href="/aboutus">
-          About us
-        </Link>
-        <Link className="header__item" href="/team">
-          Team
-        </Link>
-        <Link className="header__item" href="/aboutproject">
-          About project
-        </Link>
-      </span>
-    </div>
+        <Box>
+          <Link href="/" color="inherit" sx={{ margin: 2 }}>
+            Home
+          </Link>
+          <Link href="/aboutus" color="inherit" sx={{ margin: 2 }}>
+            About Us
+          </Link>
+          <Link href="/aboutproject" color="inherit" sx={{ margin: 2 }}>
+            About Project
+          </Link>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
